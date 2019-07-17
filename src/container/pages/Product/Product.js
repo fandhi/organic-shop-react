@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { Nav, Navbar } from 'react-bootstrap';
 
-import CardProduct from '../../CardProduct/CardProduct';
+import CardProduct from './CardProduct/CardProduct';
 
 class Product extends Component {
     state = {
