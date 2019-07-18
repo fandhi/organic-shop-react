@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
+import ActionType from '../../../../redux/reducer/globalActionType';
 
 class Counter extends Component {
     // state = {
@@ -33,11 +34,11 @@ class Counter extends Component {
     render() {
         console.log('Counter ',this.props)
         return (
-            <Fragment>
-                <Button variant="primary" onClick={this.props.handleMinus}>-</Button>
-                <input className="text-center mr-1 ml-1" type="text" value={this.props.order} />
-                <Button variant="primary" onClick={this.props.handlePlus}>+</Button>
-            </Fragment>
+            <div className="d-flex">
+                <Button variant="primary" size="sm" className="flex-fill" onClick={this.props.handleMinus}>-</Button>
+                <input className="text-center mr-1 ml-1 form-control flex-fill" type="text" value={this.props.order} />
+                <Button variant="primary" size="sm" className="flex-fill" onClick={this.props.handlePlus}>+</Button>
+            </div>
         );
     }
 }
@@ -50,8 +51,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        handlePlus: () => dispatch({type: 'PLUS_ORDER'}),
-        handleMinus: () => dispatch({type: 'MINUS_ORDER'})
+        handlePlus: () => dispatch({type: ActionType.PLUS_ORDER}),
+        handleMinus: () => dispatch({type: ActionType.MINUS_ORDER})
     }
 }
 

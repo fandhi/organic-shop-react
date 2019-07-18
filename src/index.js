@@ -8,32 +8,8 @@ import { createStore } from 'redux';
 
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import rootReducer from './redux/reducer/globalReducer';
 
-const initialState = {
-    totalOrder: 0
-}
-
-// Reducer
-const rootReducer = (state = initialState, action) => {
-    switch (action.type) {
-        case ('PLUS_ORDER'):
-            return {
-                ...state,
-                totalOrder: state.totalOrder + 1
-            }
-        case ('MINUS_ORDER'):
-            let totalOrder = 0;
-            if(state.totalOrder > 0) {
-                totalOrder= state.totalOrder - 1
-            }
-            return {
-                ...state,
-                totalOrder: totalOrder
-            }
-        default:
-            return state;
-    }
-}
 
 // Store
 const store = createStore(rootReducer);

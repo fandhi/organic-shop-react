@@ -1,14 +1,20 @@
 import React, { Component, Fragment } from 'react';
-import { Nav, Navbar } from 'react-bootstrap';
+import { Nav, Navbar, CardDeck } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
 import CardProduct from './CardProduct/CardProduct';
+import axios from 'axios';
 
 class Product extends Component {
-    // state = {
-    //     order: 4,
-    //     name: 'Safandhi'
-    // }
+    state = {
+        product: [],
+        productFiles: {
+            title: '',
+            imageUrl: '',
+            category: '',
+            price: '',
+        }
+    }
 
     // handleCounterChange = (newValue) => {
     //     this.setState({
@@ -16,13 +22,33 @@ class Product extends Component {
     //     })
     // }
 
+    getProductAPI = () => {
+        axios.get('http://localhost:3004/products')
+            .then(response => {
+                console.log('response product ', response)
+                this.setState({
+                    product: response.data
+                })
+            })
+    }
+
+    componentDidMount() {
+        this.getProductAPI()
+    };
+
+
     render() {
         return (
             <Fragment>
-                <div className="col-lg-9 col-md-8">
-                    <CardProduct
-                    // onCounterChange={(value) => this.handleCounterChange(value)} 
-                    />
+                <div className="row">
+                <CardDeck>
+                    {this.state.product.map((product, index) => {
+                        return <CardProduct key={index} data={product}
+                        // onCounterChange={(value) => this.handleCounterChange(value)} 
+                        />
+                    })
+                    }
+                    </CardDeck>
                 </div>
             </Fragment>
         );

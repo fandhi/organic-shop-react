@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import Post from '../../../components/Post';
 import axios from 'axios';
 import { Form, Button, Card } from 'react-bootstrap';
@@ -101,7 +101,7 @@ class BlogPost extends Component {
     
     render() {
         return (
-            <div className="col-lg-9 col-md-8">
+            <Fragment>
                 <Card className="shadow-sm mb-1">
                     <Card.Body>
                         <Form.Group controlId="formTitle">
@@ -120,7 +120,7 @@ class BlogPost extends Component {
                         return <Post key={post.id} data={post} remove={this.handleRemove} update={this.handleUpdate} goDetail={this.handleDetail} />
                     })
                 }
-            </div>
+            </Fragment>
             
         );
     }
