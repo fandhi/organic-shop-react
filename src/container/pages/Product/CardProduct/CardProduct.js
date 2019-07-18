@@ -1,34 +1,9 @@
 import React, { Component } from 'react';
-import { Button, Card } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
+
+import Counter from './Counter';
 
 class CardProduct extends Component {
-    state = {
-        order: 4,
-        name: 'Safandhi'
-    }
-
-    handleCounterChange = (newValue) => {
-        this.props.onCounterChange(newValue)
-    }
-
-    handlePlus = () => {
-        this.setState({
-            order: this.state.order + 1
-        }, () => {
-            this.handleCounterChange(this.state.order)
-        })
-    }
-
-    handleMinus = () => {
-        if (this.state.order > 0) {
-            this.setState({
-                order: this.state.order - 1
-            }, () => {
-                this.handleCounterChange(this.state.order)
-            })
-        }
-    }
-
     render() {
         return (
             <div className="col-lg-9 col-md-8">
@@ -37,9 +12,7 @@ class CardProduct extends Component {
                     <Card.Body>
                         <Card.Title>Spinach</Card.Title>
                         <Card.Text>Spinach Spinach Spinach Spinach</Card.Text>
-                        <Button variant="primary" onClick={this.handleMinus}>-</Button>
-                        <input className="text-center mr-1 ml-1" type="text" value={this.state.order} />
-                        <Button variant="primary" onClick={this.handlePlus}>+</Button>
+                        <Counter />
                     </Card.Body>
                 </Card>
             </div>
