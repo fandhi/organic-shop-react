@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { Nav, Navbar, CardDeck } from 'react-bootstrap';
+import { Nav, Navbar, CardDeck, CardGroup } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
 import CardProduct from './CardProduct/CardProduct';
@@ -41,14 +41,14 @@ class Product extends Component {
         return (
             <Fragment>
                 <div className="row">
-                <CardDeck>
+                <CardGroup>
                     {this.state.product.map((product, index) => {
                         return <CardProduct key={index} data={product}
                         // onCounterChange={(value) => this.handleCounterChange(value)} 
                         />
                     })
                     }
-                    </CardDeck>
+                    </CardGroup>
                 </div>
             </Fragment>
         );

@@ -8,7 +8,7 @@ const CardProduct = (props) => {
     return (
         // <div className="mb-1 col-lg-3 col-md-3">
         
-            <Card className="border-0 shadow">
+            <Card className="border-0 shadow-sm">
                 <Card.Img variant="top" src={props.data.imageUrl} />
                 <Card.Body>
                     <Card.Title>{props.data.title}</Card.Title>

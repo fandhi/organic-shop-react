@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Navbar, Nav } from 'react-bootstrap';
+import { Navbar, Nav, Badge } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
 class Header extends Component {
@@ -10,7 +10,7 @@ class Header extends Component {
                 <Nav className="mr-auto">
                 </Nav>
                 <Nav>
-                    <Nav.Link href="#pricing">{this.props.order}</Nav.Link>
+                <Badge pill variant="warning">{this.props.order}</Badge>
                 </Nav>
             </Navbar>
         );

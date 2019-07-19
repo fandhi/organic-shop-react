@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import Post from '../../../components/Post';
 import axios from 'axios';
 import { Form, Button, Card } from 'react-bootstrap';
+import API from '../../../services';
 
 class BlogPost extends Component {
     state = {
@@ -12,35 +13,56 @@ class BlogPost extends Component {
             title: '',
             body: '',
         },
-        isUpdate: false
+        isUpdate: false,
+        comments: []
     }
 
     getPostAPI = () => {
-        axios.get('http://localhost:3004/posts?_sort=id&_order=desc')
-      .then(response => {
-        //   console.log('axios ',response)
-          this.setState({
-              post: response.data
-          })
-      })
+        API.getNewsBlog()
+            .then(response => {
+                //   console.log('axios ',response)
+                this.setState({
+                    post: response
+                })
+            })
+        API.getComments()
+            .then(response => {
+                console.log('comments ', response)
+                this.setState({
+                    comments: response
+                })
+            })
     }
 
     postDataToAPI = () => {
-        axios.post('http://localhost:3004/posts', this.state.formBlogPost)
+        API.postNewsBlog(this.state.formBlogPost)
         .then(response => {
-            // console.log(response)
-            this.getPostAPI()
-        }, (error) => {
-            console.log('error ', error)
+            this.getPostAPI();
+            this.setState({
+                formBlogPost: {
+                    userId: 1,
+                    id: 1,
+                    title: '',
+                    body: '',
+                }
+            })
+
         })
+        // axios.post('http://localhost:3004/posts', this.state.formBlogPost)
+        //     .then(response => {
+        //         // console.log(response)
+        //         this.getPostAPI()
+        //     }, (error) => {
+        //         console.log('error ', error)
+        //     })
     }
 
     putDataToAPI = () => {
         axios.put(`http://localhost:3004/posts/${this.state.formBlogPost.id}`, this.state.formBlogPost)
-        .then(response => {
-            console.log('object ', response)
-            this.getPostAPI()
-        })
+            .then(response => {
+                console.log('object ', response)
+                this.getPostAPI()
+            })
         this.setState({
             formBlogPost: {
                 userId: 1,
@@ -58,22 +80,22 @@ class BlogPost extends Component {
             formBlogPost: data,
             isUpdate: true
         })
-        
+
     }
 
     handleRemove = (data) => {
         console.log(data)
         axios.delete(`http://localhost:3004/posts/${data}`)
-        .then(response => {
-            console.log(response)
-            this.getPostAPI()
-        })
+            .then(response => {
+                console.log(response)
+                this.getPostAPI()
+            })
     }
 
     handleFormChange = (event) => {
-        let formBlogPostNew = {...this.state.formBlogPost}
+        let formBlogPostNew = { ...this.state.formBlogPost }
         let timeStamp = new Date().getTime();
-        if(!this.state.isUpdate) {
+        if (!this.state.isUpdate) {
             formBlogPostNew['id'] = timeStamp;
         }
         formBlogPostNew[event.target.name] = event.target.value;
@@ -83,9 +105,9 @@ class BlogPost extends Component {
     }
 
     handleSubmit = () => {
-        if(this.state.isUpdate) {
+        if (this.state.isUpdate) {
             this.putDataToAPI()
-        }else{
+        } else {
             this.postDataToAPI();
         }
     }
@@ -98,7 +120,7 @@ class BlogPost extends Component {
         this.getPostAPI()
     };
 
-    
+
     render() {
         return (
             <Fragment>
@@ -115,13 +137,18 @@ class BlogPost extends Component {
                         <Button variant="primary" type="submit" onClick={this.handleSubmit}>Submit</Button>
                     </Card.Body>
                 </Card>
+                {/* {
+                    this.state.comments.map(comment => {
+                        return <p key={comment.id}>{comment.name} {comment.email}</p>
+                    })
+                } */}
                 {
                     this.state.post.map(post => {
                         return <Post key={post.id} data={post} remove={this.handleRemove} update={this.handleUpdate} goDetail={this.handleDetail} />
                     })
                 }
             </Fragment>
-            
+
         );
     }
 }

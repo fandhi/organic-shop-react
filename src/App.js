@@ -31,8 +31,7 @@ class App extends Component {
                                     <Link to="/lifecycle">Lifecycle</Link>
                                 </ListGroup.Item>
                             </ListGroup>
-                            {/* <Product />
-                        {!this.state.showComponent ?
+                            {/* {!this.state.showComponent ?
                             null :
                             <LifeCycleComponents />
                         }
