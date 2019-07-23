@@ -58,19 +58,18 @@ class BlogPost extends Component {
     }
 
     putDataToAPI = () => {
-        axios.put(`http://localhost:3004/posts/${this.state.formBlogPost.id}`, this.state.formBlogPost)
-            .then(response => {
-                console.log('object ', response)
-                this.getPostAPI()
+        API.updateNewBlog(this.state.formBlogPost, this.state.formBlogPost.id)
+        .then(response => {
+            this.getPostAPI()
+            this.setState({
+                formBlogPost: {
+                    userId: 1,
+                    id: 1,
+                    title: '',
+                    body: '',
+                },
+                isUpdate: false
             })
-        this.setState({
-            formBlogPost: {
-                userId: 1,
-                id: 1,
-                title: '',
-                body: '',
-            },
-            isUpdate: false
         })
     }
 
@@ -85,11 +84,10 @@ class BlogPost extends Component {
 
     handleRemove = (data) => {
         console.log(data)
-        axios.delete(`http://localhost:3004/posts/${data}`)
-            .then(response => {
-                console.log(response)
-                this.getPostAPI()
-            })
+        API.deleteNewsBlog(data)
+        .then(response => {
+            this.getPostAPI()
+        })
     }
 
     handleFormChange = (event) => {
